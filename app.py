@@ -13,6 +13,10 @@ def index():
 def portal():
     return render_template("portal.html")
 
+@app.route("/portal/<tab>")
+def filter_tab(tab):
+    return render_template("portal.html", tab=tab)
+
 @app.route("/descomplica")
 def descomplica():
     return render_template("descomplica.html")

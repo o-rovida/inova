@@ -5,7 +5,7 @@ db.create_database()
 
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/", methods=['GET'])
 def index():
     return render_template("home.html")
 
@@ -24,10 +24,6 @@ def portal_tab(tab):
         organizations = db.get_organizations(tab)
     
         return render_template("portal.html", tabs=tabs, organizations=organizations, tab_selected=tab)
-
-@app.route("/descomplica")
-def descomplica():
-    return render_template("descomplica.html")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

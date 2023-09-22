@@ -17,7 +17,7 @@
     </div>
 
     <div class="container">
-        <select class="form-select" aria-label="Default select example">
+        <select class="form-select" onchange="window.location.href = '/portal/' + this.value;">
             <option selected>Selecione Uma Aba</option>
             {% for tab in tabs %}
             <option value={{tab.TabId}}>{{tab.Name}}</option>

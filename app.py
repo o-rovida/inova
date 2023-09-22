@@ -23,7 +23,7 @@ def portal_tab(tab):
         tabs = db.get_tabs()
         organizations = db.get_organizations(tab)
     
-        return render_template("portal.html", tabs=tabs, organizations=organizations)
+        return render_template("portal.html", tabs=tabs, organizations=organizations, tab_selected=tab)
 
 @app.route("/descomplica")
 def descomplica():

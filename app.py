@@ -14,16 +14,18 @@ def portal():
 
     tabs = db.get_tabs()
     organizations = db.get_organizations()
+    count_organizations = len(organizations)
     
-    return render_template("portal.html", tabs=tabs, organizations=organizations)
+    return render_template("portal.html", tabs=tabs, organizations=organizations, count_organizations=count_organizations)
 
 @app.route("/portal/<tab>", methods=['GET','POST'])
 def portal_tab(tab):
     
         tabs = db.get_tabs()
         organizations = db.get_organizations(tab)
+        count_organizations = len(organizations)
     
-        return render_template("portal.html", tabs=tabs, organizations=organizations, tab_selected=tab)
+        return render_template("portal.html", tabs=tabs, organizations=organizations, count_organizations=count_organizations,tab_selected=tab)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=True)

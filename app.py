@@ -2,6 +2,8 @@ from flask import Flask, render_template
 import database as db
 
 db.create_database()
+tabs = db.get_tabs()
+organizations = db.get_organizations()
 
 app = Flask(__name__)
 
@@ -11,11 +13,7 @@ def index():
 
 @app.route("/portal")
 def portal():
-    return render_template("portal.html")
-
-@app.route("/portal/<tab>")
-def filter_tab(tab):
-    return render_template("portal.html", tab=tab)
+    return render_template("portal.html", tabs=tabs, organizations=organizations)
 
 @app.route("/descomplica")
 def descomplica():

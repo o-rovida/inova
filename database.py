@@ -17,12 +17,13 @@ def create_database():
         conn.close()
 
 def get_tabs():
-    tab_query = "SELECT TabId, TabName FROM Tab"
-    tab_df = pd.read_sql_query(tab_query, "database/portal_db.db")
+    tab_query = "SELECT TabId, Name FROM Tab"
 
-    tabs = {'id': tab_df['TabId'].tolist(),
-           'name': tab_df['TabName'].tolist()}
+    conn = sqlite3.connect('database/portal_db.db')
+    tab_df = pd.read_sql_query(tab_query, conn)
+    conn.close()
 
+    tabs = tab_df.to_dict(orient='records')
     return tabs
 
 def get_organizations(tab_id=None):
@@ -48,19 +49,16 @@ def get_organizations(tab_id=None):
     GROUP BY
         o.Name,
         o.WebSite,
-        o.ShortDescription o.Country,
+        o.ShortDescription,
+        o.Country,
         o.FederationUnity
     ORDER BY o.Name ASC
     """
+    conn = sqlite3.connect('database/portal_db.db')
+    organization_df = pd.read_sql_query(organization_query, conn)
+    conn.close()
 
-    organization_df = pd.read_sql_query(organization_query, "database/portal_db.db")
-
-    organizations = {'name': organization_df['Name'].tolist(),
-                     'website': organization_df['WebSite'].tolist(),
-                     'short_description': organization_df['ShortDescription'].tolist(),
-                     'country': organization_df['Country'].tolist(),
-                     'federation_unity': organization_df['FederationUnity'].tolist(),
-                     'types': organization_df['Types'].tolist()}
+    organizations = organization_df.to_dict(orient='records')
 
     return organizations
 

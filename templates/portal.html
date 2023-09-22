@@ -13,19 +13,18 @@
 
 <body>
 
-    <nav class="navbar navbar-light bg-light mb-3">
+    <nav class="navbar navbar-light bg-light mb-5">
         <a class="navbar-brand" href="/">
-            <img src="http://localhost:5000/static/settings.png" width="30" height="30" class="d-inline-block align-top mr-2" alt="">
+            <img src="http://localhost:5000/static/settings.png" width="30" height="30"
+                class="d-inline-block align-top mr-2" alt="">
             Inova Controller
         </a>
     </nav>
 
-    <div class="container">
-        <h1>Portal de Inovação</h1>
-    </div>
+    <div class="d-flex justify-content-around align-items-center mb-5">
+        <h1 class="display-5 text-left">Portal de Inovação</h1>
 
-    <div class="container">
-        <select class="form-select" onchange="window.location.href = '/portal/' + this.value;">
+        <select class="form-select" style="height: 30px" onchange="window.location.href = '/portal/' + this.value;">
             <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações</option>
             {% for tab in tabs %}
             <option value="{{tab.TabId}}" {% if tab_selected|string==tab.TabId|string %}selected{% endif %}>{{tab.Name}}
@@ -35,20 +34,20 @@
     </div>
 
     <div class="container">
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>Organização</th>
-                    <th>País</th>
-                    <th>Estado</th>
-                    <th>Categoria</th>
+                    <th scope="col">Organização</th>
+                    <th scope="col">País</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Categoria</th>
                 </tr>
             </thead>
 
             <tbody>
                 {% for organization in organizations %}
                 <tr>
-                    <td><a href={{organization.WebSite}} target="_blank"
+                    <td scope="row"><a href={{organization.WebSite}} target="_blank"
                             rel="noopener noreferrer">{{organization.Name}}</a></td>
                     <td>{{organization.Country}}</td>
                     <td>{{organization.FederationUnity}}</td>

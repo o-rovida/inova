@@ -19,6 +19,7 @@
     <div class="container">
         <select class="form-select" onchange="window.location.href = '/portal/' + this.value;">
             <option selected>Selecione Uma Aba</option>
+            <option value="0">Todas Organizações</option>
             {% for tab in tabs %}
             <option value={{tab.TabId}}>{{tab.Name}}</option>
             {% endfor %}

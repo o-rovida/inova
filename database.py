@@ -28,7 +28,7 @@ def get_tabs():
 
 def get_organizations(tab_id=None):
     
-    if tab_id == None:
+    if tab_id == None or tab_id == "0":
         where = " "
     else:
         where = f"WHERE tb.TabId = {tab_id}"

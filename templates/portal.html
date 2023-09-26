@@ -48,7 +48,8 @@
                 {% for organization in organizations %}
                 <tr>
                     <td scope="row"><a href={{organization.WebSite}} target="_blank"
-                            rel="noopener noreferrer">{{organization.Name}}</a></td>
+                            rel="noopener noreferrer"
+                            data-bs-toggle="tooltip" data-bs-placement="left" title="{{organization.ShortDescription}}">{{organization.Name}}</a></td>
                     <td>{{organization.Country}}</td>
                     <td>{{organization.FederationUnity}}</td>
                     <td>{{organization.Types}}</td>

@@ -249,7 +249,7 @@ def translate_country_codes(country_codes):
 
     country_names = []
     for code in country_codes:
-        if code != None and code != "None":
+        if code in country_dict:
             country_names.append(country_dict[code])
         else:
             country_names.append("")
@@ -288,7 +288,7 @@ def translate_federation_unity_codes(federation_unity_codes):
 
     federation_unity_names = []
     for code in federation_unity_codes:
-        if code != None and code != "None":
+        if code in federation_unity_dict:
             federation_unity_names.append(federation_unity_dict[code])
         else:
             federation_unity_names.append("")

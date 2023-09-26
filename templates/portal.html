@@ -48,7 +48,7 @@
                 {% for organization in organizations %}
                 <tr>
                     <td scope="row">
-                        <span class="tool" data-bs-placement="bottom" title="{{organization.ShortDescription}}">
+                        <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{organization.ShortDescription}}">
                             <a href={{organization.WebSite}} target="_blank"
                                 rel="noopener noreferrer">{{organization.Name}}</a>
                         </span>
@@ -69,9 +69,9 @@
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
     <script>
-        const tooltips = document.querySelectorAll('.tool') 
-        tooltips.forEach(t => {
-            new bootstrap.Tooltip(t)
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
 </body>

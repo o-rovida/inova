@@ -1,6 +1,7 @@
 import sqlite3
 import os
 import pandas as pd
+import location
 
 def create_database():
 
@@ -57,6 +58,9 @@ def get_organizations(tab_id=None):
     conn = sqlite3.connect('database/portal_db.db')
     organization_df = pd.read_sql_query(organization_query, conn)
     conn.close()
+
+    organization_df['Country'] = location.translate_country_codes(organization_df['Country'])
+    organization_df['FederationUnity'] = location.translate_federation_unity_codes(organization_df['FederationUnity'])
 
     organizations = organization_df.to_dict(orient='records')
 

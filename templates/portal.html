@@ -13,19 +13,14 @@
 
 <body>
 
-    <nav class="navbar navbar-light bg-light mb-5">
-        <a class="navbar-brand" href="/">
-            <img src="http://localhost:5000/static/settings.png" width="30" height="30"
-                class="d-inline-block align-top mr-2" alt="">
-            Inova Controller
-        </a>
-    </nav>
+    {% include "header.html" %}
 
     <div class="d-flex justify-content-around align-items-center mb-5">
         <h1 class="display-5 text-left">Portal de Inovação</h1>
 
         <div class="d-flex justify-content-end">
-            <select class="form-select mr-2" style="height: 30px" onchange="window.location.href = '/portal/' + this.value;">
+            <select class="form-select mr-2" style="height: 30px"
+                onchange="window.location.href = '/portal/' + this.value;">
                 <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações</option>
                 {% for tab in tabs %}
                 <option value="{{tab.TabId}}" {% if tab_selected|string==tab.TabId|string %}selected{% endif %}>

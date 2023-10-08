@@ -13,7 +13,7 @@
 
 <body>
 
-    {% include "header.html" %}
+    {% include "header.jinja2" %}
 
     <div class="d-flex justify-content-around align-items-center mb-5">
         <h1 class="display-5 text-left">Portal de Inovação</h1>
@@ -33,8 +33,14 @@
         </div>
     </div>
 
+    <div class="container mb-5">
+        <sapan data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Gere o código HTML da tabela formatada para o WordPress.">
+            <button id="generate_html" type="button" class="btn btn-secondary">Gerar Código HTML</button>
+    </div>
+
     <div class="container">
-        <table class="table">
+        <table class="table" id="organization_table">
             <thead>
                 <tr>
                     <th scope="col">Organização</th>
@@ -48,7 +54,8 @@
                 {% for organization in organizations %}
                 <tr>
                     <td scope="row">
-                        <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="{{organization.ShortDescription}}">
+                        <span data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="{{organization.ShortDescription}}">
                             <a href={{organization.WebSite}} target="_blank"
                                 rel="noopener noreferrer">{{organization.Name}}</a>
                         </span>
@@ -61,17 +68,36 @@
             </tbody>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
         integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
         crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#generate_html').click(function () {
+                $.ajax({
+                    url: '/execute/generate_html',
+                    type: 'POST',
+                    data: {
+                        tab_selected: {{ tab_selected | tojson | safe }}
+                    },
+            success: function (data) {
+                alert('Código HTML gerado com sucesso!');
+            }
+                });
+            });
+        });        
     </script>
 </body>

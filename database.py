@@ -36,6 +36,7 @@ def get_organizations(tab_id=None):
 
     organization_query = f"""
     SELECT
+        o.OrganizationId,
         o.Name,
         o.WebSite,
         o.ShortDescription,
@@ -65,6 +66,35 @@ def get_organizations(tab_id=None):
     organizations = organization_df.to_dict(orient='records')
 
     return organizations
+
+def get_a_single_organization(organization_id): #preciso identificar a melhor forma de pegar a lista de tipos de uma organização
+    single_organization_query = f"""
+    SELECT
+        o.OrganizationId,
+        o.Name,
+        o.WebSite,
+        o.ShortDescription,
+        o.Country,
+        o.FederationUnity,
+        tb.Name as TabName
+    FROM [OrganizationType] ot
+        INNER JOIN [Organization] o ON ot.OrganizationId = o.OrganizationId
+        INNER JOIN [Type] tp ON tp.TypeId = ot.TypeId
+        INNER JOIN [Tab] tb ON tb.TabId = tp.TabId
+    WHERE o.OrganizationId = {organization_id}
+    """
+    conn = sqlite3.connect('database/portal_db.db')
+    single_organization_df = pd.read_sql_query(single_organization_query, conn)
+    conn.close()
+
+    single_organization_df['Country'] = location.translate_country_codes(single_organization_df['Country'])
+    single_organization_df['FederationUnity'] = location.translate_federation_unity_codes(single_organization_df['FederationUnity'])
+
+    single_organization = single_organization_df.to_dict(orient='records')
+    single_organization = single_organization[0]
+
+    return single_organization
+
 
 if __name__ == "__main__":
     create_database()

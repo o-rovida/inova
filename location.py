@@ -1,5 +1,4 @@
-def translate_country_codes(country_codes):
-    country_dict = {
+country_dict = {
         "AW": "Aruba",
         "AF": "Afeganistão",
         "AO": "Angola",
@@ -247,6 +246,8 @@ def translate_country_codes(country_codes):
         "ZW": "Zimbabwe",
     }
 
+def translate_country_codes(country_codes):
+    
     country_names = []
     for code in country_codes:
         if code in country_dict:
@@ -255,8 +256,7 @@ def translate_country_codes(country_codes):
             country_names.append("")
     return country_names
 
-def translate_federation_unity_codes(federation_unity_codes):
-    federation_unity_dict = {
+federation_unity_dict = {
         "AC": "Acre",
         "AL": "Alagoas",
         "AP": "Amapá",
@@ -286,6 +286,8 @@ def translate_federation_unity_codes(federation_unity_codes):
         "TO": "Tocantins"
     }
 
+def translate_federation_unity_codes(federation_unity_codes):
+    
     federation_unity_names = []
     for code in federation_unity_codes:
         if code in federation_unity_dict:

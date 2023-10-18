@@ -75,12 +75,8 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
         o.WebSite,
         o.ShortDescription,
         o.Country,
-        o.FederationUnity,
-        tb.Name as TabName
-    FROM [OrganizationType] ot
-        INNER JOIN [Organization] o ON ot.OrganizationId = o.OrganizationId
-        INNER JOIN [Type] tp ON tp.TypeId = ot.TypeId
-        INNER JOIN [Tab] tb ON tb.TabId = tp.TabId
+        o.FederationUnity
+    FROM [Organization] o
     WHERE o.OrganizationId = {organization_id}
     """
     conn = sqlite3.connect('database/portal_db.db')
@@ -95,6 +91,33 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
 
     return single_organization
 
+def update_organization_register(name, website, short_description, country, federation_unity, organization_id):
+        
+    country_values = list(location.country_dict.values())
+    country_keys = list(location.country_dict.keys())
+    country = country_keys[country_values.index(country)] 
+        
+    federation_unity_values = list(location.federation_unity_dict.values())
+    federation_unity_keys = list(location.federation_unity_dict.keys())
+    federation_unity = federation_unity_keys[federation_unity_values.index(federation_unity)]
+
+    query = f"""
+    UPDATE [Organization]
+    SET
+        Name = '{name}',
+        WebSite = '{website}',
+        ShortDescription = '{short_description}',
+        Country = '{country}',
+        FederationUnity = '{federation_unity}'
+    WHERE OrganizationId = {organization_id}
+    """
+        
+    conn = sqlite3.connect('database/portal_db.db')
+    conn.execute(query)
+    conn.commit()
+    conn.close()
+    
+    return "Organização editada com sucesso!"
 
 if __name__ == "__main__":
     create_database()

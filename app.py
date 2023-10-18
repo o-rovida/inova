@@ -29,5 +29,18 @@ def portal_organization(organization_id):
 def execute():
     return library.generate_html(request.form['tab_selected'])
 
+@app.route("/execute/update_database", methods=['POST'])
+def execute_update_database():
+    data = request.get_json()
+
+    name = data['Name']
+    website = data['WebSite']
+    short_description = data['ShortDescription']
+    country = data['Country']
+    federation_unity = data['FederationUnity']
+    organization_id = data['OrganizationId']
+
+    return db.update_organization_register(name, website, short_description, country, federation_unity, organization_id)
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

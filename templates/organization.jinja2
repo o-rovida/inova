@@ -20,21 +20,21 @@
     <div class="container">
 
         <div class="container mb-4">
-            <form>
+            <form id="OrganizationForm">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Nome da Organização</label><br />
-                        <input class="form-control" type="text" value="{{organization.Name}}"><br />
+                        <input id="Name" class="form-control" type="text" value="{{organization.Name}}"><br />
                     </div>
                     <div class="form-group col-md-6">
                         <label>Site da Organização</label><br />
-                        <input class="form-control" type="url" value="{{organization.WebSite}}"><br />
+                        <input id="WebSite" class="form-control" type="url" value="{{organization.WebSite}}"><br />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label>Descrição da Organização</label><br />
-                        <textarea class="form-control" style="height: 150px;"
+                        <textarea id="ShortDescription" class="form-control" style="height: 150px;"
                             name="ShortDescription">{{organization.ShortDescription}}</textarea><br />
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-6 mb-5">
                         <p class="h4">Estado da Organização</p>
                         <select class="custom-select" id="FederationUnity" {% if organization.Country !="Brasil"
                             %}disabled{% endif %}>
@@ -70,7 +70,12 @@
                     </div>
 
                 </div>
-
+                <div class="form-row">
+                    <div class="form-group col-md-6"></div>
+                    <div class="form-group col-md-6 d-flex flex-row-reverse">
+                        <button class="btn btn-secondary btn-lg" type="submit">Editar Organização</button>
+                    </div>
+                </div>
             </form>
 
         </div>
@@ -78,12 +83,18 @@
         <div style="height: 150px;">
         </div>
 
+        <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"></script>
+
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <!-- bloqueia menu de estado caso país não seja Brasil -->
         <script>
             // Referências aos elementos select
             const Country = document.getElementById("Country");
@@ -100,6 +111,45 @@
                     FederationUnity.disabled = false;
                 }
             });
+        </script>
+
+        <!-- envia forms -->
+        <script>
+            $(document).ready(function () {
+                $("#OrganizationForm").submit(function (event) {
+                    event.preventDefault();
+                    const Name = $("#Name").val();
+                    const WebSite = $("#WebSite").val();
+                    const ShortDescription = $("#ShortDescription").val();
+                    const Country = $("#Country").val();
+                    const FederationUnity = $("#FederationUnity").val();
+                    const OrganizationId = "{{organization.OrganizationId}}";
+                    const data = {
+                        Name,
+                        WebSite,
+                        ShortDescription,
+                        Country,
+                        FederationUnity,
+                        OrganizationId
+                    };
+                    console.log(data);
+
+                    $.ajax({
+                        url: "/execute/update_database",
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        success: function (response) {
+                            console.log("Success: Data updated successfully");
+                            alert("Organização editada com sucesso!");
+                            window.location.reload();
+                        },
+                    error: function (error) {
+                            console.log("Error", error.statusText);
+                        }
+                    })
+                })
+            })
         </script>
 </body>
 

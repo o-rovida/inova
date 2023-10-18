@@ -15,28 +15,42 @@
 
     {% include "header.jinja2" %}
 
-    <div class="d-flex justify-content-around align-items-center mb-5">
-        <h1 class="display-5 text-left">Portal de Inovação</h1>
-
-        <div class="d-flex justify-content-end">
-            <select class="form-select mr-2" style="height: 30px"
-                onchange="window.location.href = '/portal/' + this.value;">
-                <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações</option>
-                {% for tab in tabs %}
-                <option value="{{tab.TabId}}" {% if tab_selected|string==tab.TabId|string %}selected{% endif %}>
-                    {{tab.Name}}
-                </option>
-                {% endfor %}
-            </select>
-
-            <p><b>Total de organizações:</b> {{count_organizations}}</p>
+    <div class="container mb-4">
+        <div class="d-flex">
+            <div class="mr-auto p-2">
+                <h1 class="display-5 text-left">Portal de Inovação</h1>
+            </div>
+            <div class="p-2">
+                <select class="custom-select" onchange="window.location.href = '/portal/' + this.value;">
+                    <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações</option>
+                    {% for tab in tabs %}
+                    <option value="{{tab.TabId}}" {% if tab_selected|string==tab.TabId|string %}selected{% endif %}>
+                        {{tab.Name}}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="p-2">
+                <p><b>Total de organizações:</b> {{count_organizations}}</p>
+            </div>
         </div>
     </div>
+    
+    <hr style="color=rgb(192,192,192)">
+    <div style="height:50px"></div>
 
     <div class="container mb-5">
-        <sapan data-bs-toggle="tooltip" data-bs-placement="bottom"
-            title="Gere o código HTML da tabela formatada para o WordPress.">
-            <button id="generate_html" type="button" class="btn btn-secondary">Gerar Código HTML</button>
+        <div class="row">
+            <div class="col mb-6">
+                <sapan data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    title="Gere o código HTML da tabela formatada para o WordPress.">
+                    <button id="generate_html" type="button" class="btn btn-secondary">Gerar Código HTML</button>
+            </div>
+
+            <div class="col mb-6">
+                <input class="form-control" id="search" type="text" placeholder="Busque por uma organização">
+            </div>
+        </div>
     </div>
 
     <div class="container">
@@ -99,12 +113,22 @@
     </script>
 
     <!-- tooltip -->
-
     <script>
         let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
         let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+    </script>
+    <!-- barra de pesquisa *filtra tabela -->
+    <script>
+        $(document).ready(function () {
+            $("#search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#organization_table tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
     </script>
 
     <!-- ao clicar na linha do portal leva ao editor da organização -->

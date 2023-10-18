@@ -105,9 +105,9 @@ def update_organization_register(name, website, short_description, country, fede
     query = f"""
     UPDATE [Organization]
     SET
-        Name = '{name}',
-        WebSite = '{website}',
-        ShortDescription = '{short_description}',
+        Name = "{name}",
+        WebSite = "{website}",
+        ShortDescription = "{short_description}",
         Country = '{country}',
         FederationUnity = '{federation_unity}'
     WHERE OrganizationId = {organization_id}
@@ -119,6 +119,19 @@ def update_organization_register(name, website, short_description, country, fede
     conn.close()
     
     return "Organização editada com sucesso!"
+
+def delete_organization(organization_id):
+    query = f"""
+    DELETE FROM [Organization]
+    WHERE OrganizationId = {organization_id}
+    """
+        
+    conn = sqlite3.connect('database/portal_db.db')
+    conn.execute(query)
+    conn.commit()
+    conn.close()
+    
+    return "Organização deletada com sucesso!"
 
 if __name__ == "__main__":
     create_database()

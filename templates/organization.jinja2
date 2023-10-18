@@ -55,6 +55,7 @@
                         <label>Estado da Organização</label>
                         <select class="custom-select" id="FederationUnity" {% if organization.Country !="Brasil"
                             %}disabled{% endif %}>
+                            <option value="" selected></option>
                             <option value="{{organization.FederationUnity}}" selected>
                                 {{organization.FederationUnity}}
                             </option>
@@ -142,7 +143,7 @@
                         success: function (response) {
                             console.log("Success: Data updated successfully");
                             alert("Organização editada com sucesso!");
-                            window.location.reload();
+                            window.location.href = "/portal/0";
                         },
                     error: function (error) {
                             console.log("Error", error.statusText);

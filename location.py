@@ -1,4 +1,5 @@
 country_dict = {
+        "BR": "Brasil",
         "AW": "Aruba",
         "AF": "Afeganistão",
         "AO": "Angola",
@@ -30,7 +31,6 @@ country_dict = {
         "BZ": "Belize",
         "BM": "Bermudas",
         "BO": "Bolívia",
-        "BR": "Brasil",
         "BB": "Barbados",
         "BN": "Brunei",
         "BT": "Butão",
@@ -206,7 +206,7 @@ country_dict = {
         "SK": "Eslováquia",
         "SI": "Eslovênia",
         "SE": "Suécia",
-        "SZ": "eSwatani",
+        "SZ": "Eswatini",
         "SX": "Sint-Maarten",
         "SC": "Seicheles",
         "SY": "Síria",
@@ -241,7 +241,7 @@ country_dict = {
         "WS": "Samoa",
         "XK": "Kosovo",
         "YE": "Iémen",
-        "ZA": "áfrica do Sul",
+        "ZA": "África do Sul",
         "ZM": "Zâmbia",
         "ZW": "Zimbabwe",
     }

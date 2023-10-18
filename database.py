@@ -93,13 +93,13 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
 
 def update_organization_register(name, website, short_description, country, federation_unity, organization_id):
         
-    country_values = list(location.country_dict.values())
-    country_keys = list(location.country_dict.keys())
-    country = country_keys[country_values.index(country)] 
+    #country_values = list(location.country_dict.values())
+    #country_keys = list(location.country_dict.keys())
+    #country = country_keys[country_values.index(country)] 
         
-    federation_unity_values = list(location.federation_unity_dict.values())
-    federation_unity_keys = list(location.federation_unity_dict.keys())
-    federation_unity = federation_unity_keys[federation_unity_values.index(federation_unity)]
+    #federation_unity_values = list(location.federation_unity_dict.values())
+    #federation_unity_keys = list(location.federation_unity_dict.keys())
+    #federation_unity = federation_unity_keys[federation_unity_values.index(federation_unity)]
 
     query = f"""
     UPDATE [Organization]

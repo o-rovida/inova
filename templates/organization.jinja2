@@ -41,7 +41,7 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <p class="h4">País da Organização</p>
+                        <label>País da Organização</label>
                         <select class="custom-select" id="Country">
                             <option value="{{organization.Country}}" selected>{{organization.Country}}</option>
                             {% for country in countries %}
@@ -52,7 +52,7 @@
                         </select>
                     </div>
                     <div class="form-group col-md-6 mb-5">
-                        <p class="h4">Estado da Organização</p>
+                        <label>Estado da Organização</label>
                         <select class="custom-select" id="FederationUnity" {% if organization.Country !="Brasil"
                             %}disabled{% endif %}>
                             <option value="{{organization.FederationUnity}}" selected>

@@ -2,7 +2,7 @@ CREATE TABLE
     IF NOT EXISTS Organization (
         OrganizationId INTEGER PRIMARY KEY AUTOINCREMENT,
         Name TEXT,
-        WebSite TEXT NOT NULL UNIQUE,
+        WebSite TEXT,
         Country TEXT,
         FederationUnity TEXT,
         ShortDescription TEXT

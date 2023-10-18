@@ -52,7 +52,7 @@
 
             <tbody>
                 {% for organization in organizations %}
-                <tr>
+                <tr class="organizationRow" data-organization-id="{{organization.OrganizationId}}">
                     <td scope="row">
                         <span data-bs-toggle="tooltip" data-bs-placement="bottom"
                             title="{{organization.ShortDescription}}">
@@ -101,5 +101,20 @@
                 });
             });
         });        
+    </script>
+
+    <!-- ao clicar na linha do portal leva ao editor da organização -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const organizationRows = document.querySelectorAll(".organizationRow");
+
+            organizationRows.forEach(function (row) {
+                row.addEventListener("click", function () {
+                    const organizationId = row.getAttribute("data-organization-id");
+                    const organizationLink = `http://localhost:5000/portal/organization/${organizationId}`;
+                    window.location.href = organizationLink;
+                });
+            });
+        });
     </script>
 </body>

@@ -60,11 +60,11 @@
     <div class="container mb-5">
 
         <div class="row mb-4">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <input class="form-control" id="search" type="text" placeholder="Busque por uma organização">
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <select class="custom-select" onchange="window.location.href = '/portal/' + this.value;">
                     <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações
                     </option>

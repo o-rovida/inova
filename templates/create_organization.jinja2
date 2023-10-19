@@ -136,17 +136,24 @@
                     const ShortDescription = $("#ShortDescription").val();
                     const Country = $("#Country").val();
                     const FederationUnity = $("#FederationUnity").val();
+                    // Obtém os valores dos checkboxes marcados no grupo "Type"
+                    const Type = [];
+                    $("#CheckboxContainer input[name='Type']:checked").each(function () {
+                        Type.push($(this).val());
+                    });
+
                     const data = {
                         Name,
                         WebSite,
                         ShortDescription,
                         Country,
-                        FederationUnity
+                        FederationUnity,
+                        Type
                     };
                     console.log(data);
 
                     $.ajax({
-                        url: "/execute/update_database",
+                        url: "/execute/crate_organization",
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify(data),
@@ -195,7 +202,7 @@
                                     var checkbox = $('<input>').attr({
                                         type: 'checkbox',
                                         class: 'form-check-input',
-                                        id: 'checkbox_' + value.TypeId,
+                                        id: value.TypeId,
                                         name: 'Type',
                                         value: value.TypeId
                                     });

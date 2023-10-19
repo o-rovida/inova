@@ -101,6 +101,46 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
 
     return single_organization
 
+def create_organization_register(name, website, short_description, country, federation_unity, types):
+        country_values = list(location.country_dict.values())
+        country_keys = list(location.country_dict.keys())
+        country = country_keys[country_values.index(country)] 
+        
+        if federation_unity != "":
+            federation_unity_values = list(location.federation_unity_dict.values())
+            federation_unity_keys = list(location.federation_unity_dict.keys())
+            federation_unity = federation_unity_keys[federation_unity_values.index(federation_unity)]
+        
+        query = f"""
+        INSERT INTO [Organization]
+            (Name, WebSite, ShortDescription, Country, FederationUnity)
+        VALUES
+            ("{name}", "{website}", "{short_description}", '{country}', '{federation_unity}')
+        """
+            
+        conn = sqlite3.connect('database/portal_db.db')
+        conn.execute(query)
+        conn.commit()
+        
+        last_id = "SELECT last_insert_rowid() as last_id"
+
+        last_id_df = pd.read_sql_query(last_id, conn)
+        organization_id = last_id_df['last_id'][0]
+        
+        for type_id in types:
+            query = f"""
+            INSERT INTO [OrganizationType]
+                (OrganizationId, TypeId)
+            VALUES
+                ({organization_id}, {type_id})
+            """
+            conn.execute(query)
+            conn.commit()
+            
+        conn.close()
+        
+        return "Organização criada com sucesso!"
+
 def update_organization_register(name, website, short_description, country, federation_unity, organization_id):
         
     country_values = list(location.country_dict.values())

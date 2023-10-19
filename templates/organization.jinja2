@@ -159,14 +159,14 @@
                     console.log(data);
 
                     $.ajax({
-                        url: "/execute/update_database",
+                        url: "/execute/update_organization",
                         type: "POST",
                         contentType: "application/json",
                         data: JSON.stringify(data),
                         success: function (response) {
                             console.log("Success: Data updated successfully");
                             alert("Organização editada com sucesso!");
-                            window.location.href = "/portal/0";
+                            window.location.href = "/portal";
                         },
                         error: function (error) {
                             console.log("Error", error.statusText);

@@ -40,8 +40,21 @@ def edit_organization(organization_id):
 def execute():
     return library.generate_html(request.form['tab_selected'])
 
-@app.route("/execute/update_database", methods=['POST'])
-def execute_update_database():
+@app.route("/execute/crate_organization", methods=['POST'])
+def execute_create_organization():
+    data = request.get_json()
+
+    name = data['Name']
+    website = data['WebSite']
+    short_description = data['ShortDescription']
+    country = data['Country']
+    federation_unity = data['FederationUnity']
+    types = data['Type']
+
+    return db.create_organization_register(name, website, short_description, country, federation_unity, types)
+
+@app.route("/execute/update_organization", methods=['POST'])
+def execute_update_organization():
     data = request.get_json()
 
     name = data['Name']

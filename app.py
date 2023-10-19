@@ -42,5 +42,13 @@ def execute_update_database():
 
     return db.update_organization_register(name, website, short_description, country, federation_unity, organization_id)
 
+@app.route("/execute/delete_organization", methods=['POST'])
+def execute_delete_organization():
+    data = request.get_json()
+
+    organization_id = data['OrganizationId']
+
+    return db.delete_organization_register(organization_id)
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

@@ -120,7 +120,7 @@ def update_organization_register(name, website, short_description, country, fede
     
     return "Organização editada com sucesso!"
 
-def delete_organization(organization_id):
+def delete_organization_register(organization_id):
     query = f"""
     DELETE FROM [Organization]
     WHERE OrganizationId = {organization_id}

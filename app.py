@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import database as db
 import library
-from location import country_dict, federation_unity_dict
+from location import country_dict, federation_unity_list
 
 db.create_database()
 
@@ -28,13 +28,13 @@ def portal_tab(tab_id):
 @app.route("/portal/organization", methods=['GET','POST'])
 def create_organization():
     tabs = db.get_tabs()
-    return render_template("create_organization.jinja2", tabs=tabs, countries=country_dict.values(), federation_unities=federation_unity_dict.values())
+    return render_template("create_organization.jinja2", tabs=tabs, countries=country_dict.values(), federation_unities=federation_unity_list)
 
 @app.route("/portal/organization/<organization_id>", methods=['GET','POST'])
 def edit_organization(organization_id):
     #tabs = db.get_tabs()
     organization = db.get_a_single_organization(organization_id)
-    return render_template("organization.jinja2", organization=organization, countries=country_dict.values(), federation_unities=federation_unity_dict.values())
+    return render_template("organization.jinja2", organization=organization, countries=country_dict.values(), federation_unities=federation_unity_list)
 
 @app.route("/execute/generate_html", methods=['POST'])
 def execute():

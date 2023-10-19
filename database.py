@@ -18,7 +18,7 @@ def create_database():
         conn.close()
 
 def get_tabs():
-    tab_query = "SELECT TabId, Name FROM Tab"
+    tab_query = "SELECT TabId, Name FROM Tab ORDER by Name"
 
     conn = sqlite3.connect('database/portal_db.db')
     tab_df = pd.read_sql_query(tab_query, conn)
@@ -28,7 +28,7 @@ def get_tabs():
     return tabs
 
 def get_types(tab_id):
-    type_query = f"SELECT TypeId, Name as TypeName FROM Type WHERE TabId = {tab_id}"
+    type_query = f"SELECT TypeId, Name as TypeName FROM Type WHERE TabId = {tab_id} ORDER by Name"
 
     conn = sqlite3.connect('database/portal_db.db')
     type_df = pd.read_sql_query(type_query, conn)
@@ -71,8 +71,7 @@ def get_organizations(tab_id=None):
     conn.close()
 
     organization_df['Country'] = location.translate_country_codes(organization_df['Country'])
-    organization_df['FederationUnity'] = location.translate_federation_unity_codes(organization_df['FederationUnity'])
-
+    
     organizations = organization_df.to_dict(orient='records')
 
     return organizations
@@ -94,7 +93,6 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
     conn.close()
 
     single_organization_df['Country'] = location.translate_country_codes(single_organization_df['Country'])
-    single_organization_df['FederationUnity'] = location.translate_federation_unity_codes(single_organization_df['FederationUnity'])
 
     single_organization = single_organization_df.to_dict(orient='records')
     single_organization = single_organization[0]
@@ -105,12 +103,7 @@ def create_organization_register(name, website, short_description, country, fede
         country_values = list(location.country_dict.values())
         country_keys = list(location.country_dict.keys())
         country = country_keys[country_values.index(country)] 
-        
-        if federation_unity != "":
-            federation_unity_values = list(location.federation_unity_dict.values())
-            federation_unity_keys = list(location.federation_unity_dict.keys())
-            federation_unity = federation_unity_keys[federation_unity_values.index(federation_unity)]
-        
+               
         query = f"""
         INSERT INTO [Organization]
             (Name, WebSite, ShortDescription, Country, FederationUnity)
@@ -147,11 +140,6 @@ def update_organization_register(name, website, short_description, country, fede
     country_keys = list(location.country_dict.keys())
     country = country_keys[country_values.index(country)] 
         
-    if federation_unity != "":
-        federation_unity_values = list(location.federation_unity_dict.values())
-        federation_unity_keys = list(location.federation_unity_dict.keys())
-        federation_unity = federation_unity_keys[federation_unity_values.index(federation_unity)]
-
     query = f"""
     UPDATE [Organization]
     SET

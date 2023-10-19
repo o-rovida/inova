@@ -228,7 +228,7 @@ country_dict = {
         "UG": "Uganda",
         "UA": "Ucrânia",
         "UY": "Uruguai",
-        "US": "Estados Unidos",
+        "US": "EUA",
         "UZ": "Uzbequistão",
         "VA": "Vaticano",
         "VC": "São Vicente e Granadinas",
@@ -256,42 +256,32 @@ def translate_country_codes(country_codes):
             country_names.append("")
     return country_names
 
-federation_unity_dict = {
-        "AC": "Acre",
-        "AL": "Alagoas",
-        "AP": "Amapá",
-        "AM": "Amazonas",
-        "BA": "Bahia",
-        "CE": "Ceará",
-        "DF": "Distrito Federal",
-        "ES": "Espírito Santo",
-        "GO": "Goiás",
-        "MA": "Maranhão",
-        "MT": "Mato Grosso",
-        "MS": "Mato Grosso do Sul",
-        "MG": "Minas Gerais",
-        "PA": "Pará",
-        "PB": "Paraíba",
-        "PR": "Paraná",
-        "PE": "Pernambuco",
-        "PI": "Piauí",
-        "RJ": "Rio de Janeiro",
-        "RN": "Rio Grande do Norte",
-        "RS": "Rio Grande do Sul",
-        "RO": "Rondônia",
-        "RR": "Roraima",
-        "SC": "Santa Catarina",
-        "SP": "São Paulo",
-        "SE": "Sergipe",
-        "TO": "Tocantins"
-    }
-
-def translate_federation_unity_codes(federation_unity_codes):
-    
-    federation_unity_names = []
-    for code in federation_unity_codes:
-        if code in federation_unity_dict:
-            federation_unity_names.append(federation_unity_dict[code])
-        else:
-            federation_unity_names.append("")
-    return federation_unity_names
+federation_unity_list = [
+        "AC",
+        "AL",
+        "AP",
+        "AM",
+        "BA",
+        "CE",
+        "DF",
+        "ES",
+        "GO",
+        "MA",
+        "MT",
+        "MS",
+        "MG",
+        "PA",
+        "PB",
+        "PR",
+        "PE",
+        "PI",
+        "RJ",
+        "RN",
+        "RS",
+        "RO",
+        "RR",
+        "SC",
+        "SP",
+        "SE",
+        "TO"
+]

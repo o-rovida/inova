@@ -32,9 +32,9 @@ def create_organization():
 
 @app.route("/portal/organization/<organization_id>", methods=['GET','POST'])
 def edit_organization(organization_id):
-    tabs = db.get_tabs()
+    #tabs = db.get_tabs()
     organization = db.get_a_single_organization(organization_id)
-    return render_template("organization.jinja2", tabs=tabs, organization=organization, countries=country_dict.values(), federation_unities=federation_unity_dict.values())
+    return render_template("organization.jinja2", organization=organization, countries=country_dict.values(), federation_unities=federation_unity_dict.values())
 
 @app.route("/execute/generate_html", methods=['POST'])
 def execute():
@@ -60,6 +60,12 @@ def execute_delete_organization():
     organization_id = data['OrganizationId']
 
     return db.delete_organization_register(organization_id)
+
+@app.route("/execute/get_types", methods=['POST'])
+def execute_get_types():
+    data = request.get_json()
+    tab_id = data['TabId']
+    return db.get_types(tab_id)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

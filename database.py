@@ -27,6 +27,16 @@ def get_tabs():
     tabs = tab_df.to_dict(orient='records')
     return tabs
 
+def get_types(tab_id):
+    type_query = f"SELECT TypeId, Name as TypeName FROM Type WHERE TabId = {tab_id}"
+
+    conn = sqlite3.connect('database/portal_db.db')
+    type_df = pd.read_sql_query(type_query, conn)
+    conn.close()
+    types = type_df.to_dict(orient='records')
+
+    return types
+
 def get_organizations(tab_id=None):
     
     if tab_id == None or tab_id == "0":

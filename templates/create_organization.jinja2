@@ -28,7 +28,7 @@
 
         <div class="container mb-4">
             <form id="OrganizationForm">
-                <div class="form-row">
+                <div class="form-row mb-2">
                     <div class="form-group col-md-6">
                         <label>Nome da Organização</label><br />
                         <input id="Name" class="form-control" type="text" value=""><br />
@@ -38,7 +38,7 @@
                         <input id="WebSite" class="form-control" type="url" value=""><br />
                     </div>
                 </div>
-                <div class="form-row">
+                <div class="form-row mb-2">
                     <div class="form-group col-md-12">
                         <label>Descrição da Organização</label><br />
                         <textarea id="ShortDescription" class="form-control" style="height: 150px;"
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="form-row">
+                <div class="form-row mb-2">
                     <div class="form-group col-md-6">
                         <label>País da Organização</label>
                         <select class="custom-select" id="Country">
@@ -56,7 +56,7 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-group col-md-6 mb-5">
+                    <div class="form-group col-md-6">
                         <label>Estado da Organização</label>
                         <select class="custom-select" id="FederationUnity">
                             <option value="" selected></option>
@@ -67,6 +67,21 @@
                         </select>
                     </div>
 
+                </div>
+                <div class="form-row mb-2">
+                    <div class="form-group col-md-12">
+                        <label>Aba da Organização</label>
+                        <select class="custom-select" id="Tab">
+                            <option value="" selected></option>
+                            {% for tab in tabs %}
+                            <option value="{{tab.TabId}}">{{tab.Name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-row mb-4">
+                        <div id="CheckboxContainer" class="form-group col-md-12">
+                        </div>
+                    </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6"></div>
@@ -147,6 +162,64 @@
                 })
             })
         </script>
+
+        <!-- recebe types -->
+
+        <script>
+            $(document).ready(function () {
+                $("#Tab").change(function () {
+                    if ($(this).val() !== "") {
+                        const data = {
+                            TabId: $(this).val()
+                        };
+
+                        $.ajax({
+                            url: '/execute/get_types',
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify(data),
+                            success: function (response) {
+                                // Limpa o conteúdo existente dentro do elemento com id "CheckboxContainer"
+                                $("#CheckboxContainer").empty();
+
+                                // Cria um rótulo para o grupo de checkboxes
+                                var groupLabel = $('<label>').text('Tipos da Organização:');
+
+                                // Adiciona o rótulo ao container
+                                $("#CheckboxContainer").append(groupLabel);
+
+                                // Itera sobre os dados do JSON e cria um checkbox para cada valor
+                                $.each(response, function (index, value) {
+                                    var checkboxDiv = $('<div class="form-check">');
+
+                                    var checkbox = $('<input>').attr({
+                                        type: 'checkbox',
+                                        class: 'form-check-input',
+                                        id: 'checkbox_' + value.TypeId,
+                                        name: 'Type',
+                                        value: value.TypeId
+                                    });
+
+                                    var checkboxLabel = $('<label class="form-check-label">').text(value.TypeName);
+
+                                    checkboxDiv.append(checkbox, checkboxLabel);
+
+                                    // Adiciona o checkbox ao elemento com id "CheckboxContainer"
+                                    $("#CheckboxContainer").append(checkboxDiv);
+                                });
+                            },
+                            error: function (error) {
+                                console.error('Erro:', error);
+                            }
+                        });
+                    }
+                });
+            });
+
+
+        </script>
+
+
 
 </body>
 

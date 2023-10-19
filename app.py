@@ -11,6 +11,13 @@ app = Flask(__name__)
 def index():
     return render_template("home.jinja2")
 
+@app.route("/portal", methods=['GET','POST'])
+def portal():
+    tabs = db.get_tabs()
+    organizations = db.get_organizations("0")
+    count_organizations = len(organizations)
+    return render_template("portal.jinja2", tabs=tabs, organizations=organizations, count_organizations=count_organizations, tab_selected=0)
+
 @app.route("/portal/<tab_id>", methods=['GET','POST'])
 def portal_tab(tab_id):
     tabs = db.get_tabs()
@@ -18,12 +25,16 @@ def portal_tab(tab_id):
     count_organizations = len(organizations)
     return render_template("portal.jinja2", tabs=tabs, organizations=organizations, count_organizations=count_organizations, tab_selected=tab_id)
 
+@app.route("/portal/organization", methods=['GET','POST'])
+def create_organization():
+    tabs = db.get_tabs()
+    return render_template("create_organization.jinja2", tabs=tabs, countries=country_dict.values(), federation_unities=federation_unity_dict.values())
+
 @app.route("/portal/organization/<organization_id>", methods=['GET','POST'])
-def portal_organization(organization_id):
+def edit_organization(organization_id):
     tabs = db.get_tabs()
     organization = db.get_a_single_organization(organization_id)
     return render_template("organization.jinja2", tabs=tabs, organization=organization, countries=country_dict.values(), federation_unities=federation_unity_dict.values())
-
 
 @app.route("/execute/generate_html", methods=['POST'])
 def execute():

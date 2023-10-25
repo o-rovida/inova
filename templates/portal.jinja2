@@ -85,7 +85,7 @@
     {% include "header.jinja2" %}
 
     <div class="container mb-4">
-        <div class="d-flex d-flex align-items-center">
+        <div class="d-flex align-items-center">
             <div class="mr-auto p-2">
                 <h1 class="display-5 text-left">Portal de Inovação</h1>
             </div>
@@ -106,8 +106,10 @@
     <div style="height:50px"></div>
 
     <div class="container mb-5">
+
         <div class="row mb-4">
-            <div class="col-md-12">
+            <div class="col-md-8"></div>
+            <div class="col-md-4">
                 <select class="custom-select" onchange="window.location.href = '/portal/' + this.value;">
                     <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações
                     </option>

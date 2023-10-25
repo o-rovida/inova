@@ -23,7 +23,7 @@ def portal_tab(tab_id):
     
     tabs = db.get_tabs()
 
-    is_start_up = 1
+    is_start_up = 0
     
     for tab in tabs:
         if str(tab['TabId']) == tab_id:

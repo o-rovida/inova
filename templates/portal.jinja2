@@ -107,15 +107,20 @@
                     <th scope="col">
                         <p>Organização</p>
                     </th>
+                    {% if is_start_up|string == "1"%}
+                    <th scope="col">
+                        <p>Estado</p>
+                    </th>
+                    
+                    <th scope="col">
+                        <p>Cidade</p>
+                    </th>
+                    {% else %}
                     <th scope="col">
                         <p>País</p>
                     </th>
                     <th scope="col">
                         <p>Estado</p>
-                    </th>
-                    {% if is_start_up|string == "1"%}
-                    <th scope="col">
-                        <p>Cidade</p>
                     </th>
                     {% endif %}
                     <th scope="col">
@@ -139,10 +144,12 @@
                                 rel="noopener noreferrer">{{organization.Name}}</a>
                         </span>
                     </td>
+                    {% if is_start_up|string == "1"%}
+                    <td>{{organization.FederationUnity}}</td>
+                    <td>{{organization.City}}</td>
+                    {% else %}
                     <td>{{organization.Country}}</td>
                     <td>{{organization.FederationUnity}}</td>
-                    {% if is_start_up|string == "1"%}
-                    <td>{{organization.City}}</td>
                     {% endif %}
                     <td>{{organization.Types}}</td>
                 </tr>

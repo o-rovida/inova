@@ -20,10 +20,22 @@ def portal():
 
 @app.route("/portal/<tab_id>", methods=['GET','POST'])
 def portal_tab(tab_id):
+    
     tabs = db.get_tabs()
+
+    is_start_up = 1
+    
+    for tab in tabs:
+        if str(tab['TabId']) == tab_id:
+            is_start_up = tab['IsStartUp']
+        else:
+            continue
+
     organizations = db.get_organizations(tab_id)
+
     count_organizations = len(organizations)
-    return render_template("portal.jinja2", tabs=tabs, organizations=organizations, count_organizations=count_organizations, tab_selected=tab_id)
+
+    return render_template("portal.jinja2", tabs=tabs, organizations=organizations, count_organizations=count_organizations, tab_selected=tab_id, is_start_up=is_start_up)
 
 @app.route("/portal/organization", methods=['GET','POST'])
 def create_organization():

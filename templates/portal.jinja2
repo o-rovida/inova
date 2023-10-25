@@ -92,6 +92,9 @@
                     <th scope="col">Organização</th>
                     <th scope="col">País</th>
                     <th scope="col">Estado</th>
+                    {% if is_start_up|string == "1"%}
+                    <th scope="col">Cidade</th>
+                    {% endif %}
                     <th scope="col">Categoria</th>
                 </tr>
             </thead>
@@ -108,6 +111,9 @@
                     </td>
                     <td>{{organization.Country}}</td>
                     <td>{{organization.FederationUnity}}</td>
+                    {% if is_start_up|string == "1"%}
+                    <td>{{organization.City}}</td>
+                    {% endif %}
                     <td>{{organization.Types}}</td>
                 </tr>
                 {% endfor %}

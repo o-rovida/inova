@@ -18,7 +18,7 @@ def create_database():
         conn.close()
 
 def get_tabs():
-    tab_query = "SELECT TabId, Name FROM Tab ORDER by Name"
+    tab_query = "SELECT TabId, Name, IsStartUp FROM Tab ORDER by IsStartUp, Name"
 
     conn = sqlite3.connect('database/portal_db.db')
     tab_df = pd.read_sql_query(tab_query, conn)
@@ -52,6 +52,7 @@ def get_organizations(tab_id=None):
         o.ShortDescription,
         o.Country,
         o.FederationUnity,
+        o.City,
         GROUP_CONCAT(tp.Name, ', ') as Types
     FROM [OrganizationType] ot
         INNER JOIN [Organization] o ON ot.OrganizationId = o.OrganizationId

@@ -44,6 +44,39 @@
             text-decoration: none;
             color: rgba(105, 165, 65, 0.8);
         }
+
+        .checkbox-menu li label {
+            display: block;
+            padding: 3px 10px;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+            margin: 0;
+            transition: background-color .4s ease;
+        }
+
+        .checkbox-menu li input {
+            margin: 0px 5px;
+            top: 2px;
+            position: relative;
+        }
+
+        .checkbox-menu li.active label {
+            background-color: #cbcbff;
+            font-weight: bold;
+        }
+
+        .checkbox-menu li label:hover,
+        .checkbox-menu li label:focus {
+            background-color: #f5f5f5;
+        }
+
+        .checkbox-menu li.active label:hover,
+        .checkbox-menu li.active label:focus {
+            background-color: #b8b8ff;
+        }
     </style>
 </head>
 
@@ -73,13 +106,8 @@
     <div style="height:50px"></div>
 
     <div class="container mb-5">
-
         <div class="row mb-4">
-            <div class="col-md-8">
-                <input class="form-control" id="search" type="text" placeholder="Busque por uma organização">
-            </div>
-
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <select class="custom-select" onchange="window.location.href = '/portal/' + this.value;">
                     <option value="0" {% if tab_selected|string=="0" %}selected{% endif %}>Todas Organizações
                     </option>
@@ -90,6 +118,26 @@
                     {% endfor %}
                 </select>
             </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <input class="form-control" id="search" type="text" placeholder="Busque por uma organização">
+            </div>
+
+            <div class="col-md-4">
+                <select class="custom-select" id="type">
+                    <option value="0" selected>Todas Categorias
+                    </option>
+                    {% for type in types %}
+                    <option value="{{type.TypeName}}">
+                        {{type.TypeName}}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -125,13 +173,10 @@
                     {% endif %}
                     <th scope="col">
 
-                        <p>Categoria
-                            <!-- <span id="table-filter" class="material-symbols-outlined">
+                        <p>Categoria</p>
+                        <!-- <span id="table-filter" class="material-symbols-outlined">
                                 filter_list
-                            </span> -->
-                        </p>
-
-
+                             </span> -->
                     </th>
                 </tr>
             </thead>
@@ -208,6 +253,23 @@
         });
     </script>
 
+    <!-- filtro de categorias -->
+    <script>
+        $(document).ready(function () {
+            $("#type").on("change", function () {
+                var value = $(this).val().toLowerCase();
+                if (value === "0") {
+                    // Se o valor for "0", não aplique o filtro e exiba todas as linhas.
+                    $("#organization_table tr.organizationRow").show();
+                } else {
+                    // Caso contrário, aplique o filtro com base no valor selecionado.
+                    $("#organization_table tr.organizationRow").filter(function () {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                    });
+                }
+            });
+        });
+    </script>
     <!-- ao clicar na linha do portal leva ao editor da organização, tem de ser sempre o ultimo script -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {

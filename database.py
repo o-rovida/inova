@@ -53,7 +53,7 @@ def get_organizations(tab_id=None):
         o.Country,
         o.FederationUnity,
         o.City,
-        GROUP_CONCAT(tp.Name, ', ') as Types
+        GROUP_CONCAT(tp.Name, ' , ') as Types
     FROM [OrganizationType] ot
         INNER JOIN [Organization] o ON ot.OrganizationId = o.OrganizationId
         INNER JOIN [Type] tp ON tp.TypeId = ot.TypeId

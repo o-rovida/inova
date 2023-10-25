@@ -28,6 +28,9 @@ def generate_html(tab_id):
     search_bar = soup.find('input', {'id': 'search'})
     search_bar = str(search_bar)
 
+    select = soup.find('div', {'id': 'type-select'})
+    select = str(select)
+
     count = soup.find('div', {'id': 'count'})
     count = str(count)
 
@@ -42,7 +45,7 @@ def generate_html(tab_id):
     # o head tem que ser um estilização que combine no WordPress, não necessariamente o head do sistema, depois testar estilos.
     # remover js nao utilizado
 
-    html = [head,'<body>', '<div>',search_bar, count, '</div> <div>',organization_table, '</div>'] + script_list[0:-1] + ['</body>']
+    html = [head,'<body>', '<div>',search_bar, select, count, '</div> <div>',organization_table, '</div>'] + script_list[0:-1] + ['</body>']
     html = '\n'.join(html)
     
     pc.copy(html)

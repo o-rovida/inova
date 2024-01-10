@@ -62,9 +62,10 @@ def execute_create_organization():
     short_description = data['ShortDescription']
     country = data['Country']
     federation_unity = data['FederationUnity']
+    city = data['City']
     types = data['Type']
 
-    return db.create_organization_register(name, website, short_description, country, federation_unity, types)
+    return db.create_organization_register(name, website, short_description, country, federation_unity, types, city)
 
 @app.route("/execute/update_organization", methods=['POST'])
 def execute_update_organization():
@@ -76,8 +77,9 @@ def execute_update_organization():
     country = data['Country']
     federation_unity = data['FederationUnity']
     organization_id = data['OrganizationId']
+    city = data['City']
 
-    return db.update_organization_register(name, website, short_description, country, federation_unity, organization_id)
+    return db.update_organization_register(name, website, short_description, country, federation_unity, organization_id, city)
 
 @app.route("/execute/delete_organization", methods=['POST'])
 def execute_delete_organization():

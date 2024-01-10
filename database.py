@@ -85,7 +85,8 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
         o.WebSite,
         o.ShortDescription,
         o.Country,
-        o.FederationUnity
+        o.FederationUnity,
+        o.City
     FROM [Organization] o
     WHERE o.OrganizationId = {organization_id}
     """
@@ -100,16 +101,16 @@ def get_a_single_organization(organization_id): #preciso identificar a melhor fo
 
     return single_organization
 
-def create_organization_register(name, website, short_description, country, federation_unity, types):
+def create_organization_register(name, website, short_description, country, federation_unity, types, city):
         country_values = list(location.country_dict.values())
         country_keys = list(location.country_dict.keys())
         country = country_keys[country_values.index(country)] 
                
         query = f"""
         INSERT INTO [Organization]
-            (Name, WebSite, ShortDescription, Country, FederationUnity)
+            (Name, WebSite, ShortDescription, Country, FederationUnity, City)
         VALUES
-            ("{name}", "{website}", "{short_description}", '{country}', '{federation_unity}')
+            ("{name}", "{website}", "{short_description}", '{country}', '{federation_unity}', '{city}')
         """
             
         conn = sqlite3.connect('database/portal_db.db')
@@ -135,7 +136,7 @@ def create_organization_register(name, website, short_description, country, fede
         
         return "Organização criada com sucesso!"
 
-def update_organization_register(name, website, short_description, country, federation_unity, organization_id):
+def update_organization_register(name, website, short_description, country, federation_unity, organization_id, city):
         
     country_values = list(location.country_dict.values())
     country_keys = list(location.country_dict.keys())
@@ -148,7 +149,8 @@ def update_organization_register(name, website, short_description, country, fede
         WebSite = "{website}",
         ShortDescription = "{short_description}",
         Country = '{country}',
-        FederationUnity = '{federation_unity}'
+        FederationUnity = '{federation_unity}',
+        City = '{city}'
     WHERE OrganizationId = {organization_id}
     """
         

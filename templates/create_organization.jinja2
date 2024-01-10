@@ -66,6 +66,10 @@
                             {% endfor %}
                         </select>
                     </div>
+                    <div class="form-group col-md-12">
+                        <label>Cidade da Organização</label><br />
+                        <input id="City" class="form-control" type="text" value=""><br />
+                    </div>
 
                 </div>
                 <div class="form-row mb-2">
@@ -136,6 +140,7 @@
                     const ShortDescription = $("#ShortDescription").val();
                     const Country = $("#Country").val();
                     const FederationUnity = $("#FederationUnity").val();
+                    const City = $("#City").val();
                     // Obtém os valores dos checkboxes marcados no grupo "Type"
                     const Type = [];
                     $("#CheckboxContainer input[name='Type']:checked").each(function () {
@@ -148,7 +153,8 @@
                         ShortDescription,
                         Country,
                         FederationUnity,
-                        Type
+                        Type,
+                        City
                     };
                     console.log(data);
 
